@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ar" data-theme="dark" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمة الجيست بوست والنشر المدفوع | Ahmed Diab - Guest Post Service</title>
+    <meta name="description" content="احصل على باك لينكات من أقوى المواقع العربية والخليجية. أكثر من 1000 موقع متاح للنشر المدفوع بأسعار تنافسية.">
+    <meta name="keywords" content="guest post, باك لينك, نشر مقالات, جيست بوست, backlinks, SEO">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== GUEST POST PAGE STYLES ===== */
+        .gp-page { min-height: 100vh; }
+
+        /* Navbar */
+        .gp-navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(var(--bg-primary-rgb, 9,9,11), 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+        .gp-navbar .container {
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1300px; margin: 0 auto; padding: 0 2rem;
+        }
+        .gp-navbar-logo {
+            font-family: var(--font-display); font-size: 1.3rem; font-weight: 800;
+            color: var(--text-primary); text-decoration: none;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .gp-navbar-logo span { color: var(--primary); }
+        .gp-navbar-actions { display: flex; align-items: center; gap: 0.8rem; }
+        .gp-nav-btn {
+            background: rgba(var(--bg-card-rgb), 0.6); border: 1px solid var(--border-color);
+            color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 0.85rem; transition: all 0.3s ease; text-decoration: none;
+            font-family: inherit;
+        }
+        .gp-nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .gp-nav-btn.active { background: var(--primary); color: #FFF; border-color: var(--primary); }
+
+        /* Hero */
+        .gp-hero {
+            padding: 8rem 2rem 3rem; text-align: center;
+            background: linear-gradient(180deg, rgba(37,99,235,0.08) 0%, transparent 60%);
+        }
+        .gp-hero-tag {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.2);
+            padding: 0.4rem 1.2rem; border-radius: 100px; font-size: 0.85rem;
+            color: var(--primary); margin-bottom: 1.5rem;
+        }
+        .gp-hero h1 {
+            font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800; color: var(--text-primary); margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        .gp-hero p {
+            font-size: 1.1rem; color: var(--text-muted); max-width: 700px;
+            margin: 0 auto 2rem; line-height: 1.8;
+        }
+        .gp-stats-row {
+            display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .gp-stat { text-align: center; }
+        .gp-stat-num {
+            font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+            color: var(--primary);
+        }
+        .gp-stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+        /* Search & Filter Bar */
+        .gp-toolbar {
+            max-width: 1300px; margin: 0 auto 2.5rem; padding: 0 2rem;
+        }
+        .gp-toolbar-inner {
+            background: rgba(var(--bg-card-rgb), 0.5); border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); padding: 1.2rem 1.5rem;
+            display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+        }
+        .gp-search-wrap {
+            flex: 1; min-width: 200px; position: relative;
+        }
+        .gp-search-wrap svg {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 18px; height: 18px; color: var(--text-muted);
+            right: 12px;
+        }
+        [dir="ltr"] .gp-search-wrap svg { right: auto; left: 12px; }
+        .gp-search-input {
+            width: 100%; background: rgba(var(--bg-primary-rgb,9,9,11), 0.6);
+            border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+            padding: 0.65rem 1rem 0.65rem 2.5rem; color: var(--text-primary);
+            font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color 0.3s;
+        }
+        [dir="rtl"] .gp-search-input { padding: 0.65rem 2.5rem 0.65rem 1rem; }
+        .gp-search-input:focus { border-color: var(--primary); }
+        .gp-search-input::placeholder { color: var(--text-muted); }
+        .gp-filter-select {
+            background: rgba(var(--bg-primary-rgb,9,9,11), 0.6);
+            border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+            padding: 0.65rem 1rem; color: var(--text-primary); font-size: 0.85rem;
+            font-family: inherit; outline: none; cursor: pointer; min-width: 140px;
+        }
+        .gp-filter-select option { background: #1a1a2e; color: #fff; }
+        .gp-results-count {
+            font-size: 0.85rem; color: var(--text-muted);
+            margin-inline-start: auto; white-space: nowrap;
+        }
+
+        /* Grid */
+        .gp-grid-section { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
+        .gp-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Card */
+        .gp-card {
+            background: rgba(var(--bg-card-rgb), 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex; flex-direction: column;
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            position: relative; overflow: hidden;
+        }
+        .gp-card:hover {
+            border-color: rgba(37,99,235,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2), 0 0 30px rgba(37,99,235,0.08);
+        }
+        .gp-card-badges {
+            position: absolute; top: 12px; left: 12px;
+            display: flex; flex-direction: column; gap: 4px;
+        }
+        [dir="rtl"] .gp-card-badges { left: auto; right: 12px; }
+        .gp-badge {
+            display: inline-flex; align-items: center; gap: 3px;
+            padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700;
+            backdrop-filter: blur(8px);
+        }
+        .gp-badge-da { background: rgba(168,85,247,0.15); color: #a855f7; }
+        .gp-badge-traffic { background: rgba(239,68,68,0.15); color: #ef4444; }
+        .gp-badge-price { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .gp-badge-spam { background: rgba(37,99,235,0.15); color: #3b82f6; }
+
+        .gp-card-header {
+            display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+        }
+        .gp-card-logo {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .gp-card-logo img {
+            width: 32px; height: 32px; object-fit: contain;
+        }
+        .gp-card-info { flex: 1; min-width: 0; }
+        .gp-card-name {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+            color: var(--text-primary); margin-bottom: 2px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .gp-card-url {
+            font-size: 0.78rem; color: var(--primary); text-decoration: none;
+            direction: ltr; display: inline-block;
+        }
+        .gp-card-url:hover { text-decoration: underline; }
+        .gp-card-desc {
+            font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
+            margin-bottom: 1.2rem; min-height: 2.5rem;
+        }
+
+        /* Stats Row */
+        .gp-card-stats {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem; margin-bottom: 1.2rem;
+        }
+        .gp-card-stat-item {
+            text-align: center; padding: 0.6rem 0.4rem;
+            background: rgba(var(--bg-primary-rgb,9,9,11), 0.5);
+            border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.04);
+        }
+        .gp-card-stat-val {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+            color: var(--text-primary);
+        }
+        .gp-card-stat-label {
+            font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;
+        }
+
+        /* Price & CTA */
+        .gp-card-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-top: auto; padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .gp-card-price {
+            font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+            color: var(--success);
+        }
+        .gp-card-price span { font-size: 0.85rem; font-weight: 400; color: var(--text-muted); }
+        .gp-order-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--primary); color: #FFF; padding: 0.6rem 1.4rem;
+            border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600;
+            text-decoration: none; border: none; cursor: pointer;
+            transition: all 0.3s ease; font-family: inherit;
+        }
+        .gp-order-btn:hover { background: #1d4ed8; transform: scale(1.03); }
+        .gp-order-btn svg { width: 16px; height: 16px; }
+
+        /* No Results */
+        .gp-no-results {
+            grid-column: 1 / -1; text-align: center; padding: 4rem 2rem;
+            color: var(--text-muted); font-size: 1.1rem;
+        }
+        .gp-no-results svg {
+            width: 48px; height: 48px; margin-bottom: 1rem; opacity: 0.3;
+        }
+
+        /* Bottom CTA */
+        .gp-bottom-cta {
+            max-width: 1300px; margin: 0 auto 4rem; padding: 0 2rem;
+        }
+        .gp-bottom-cta-inner {
+            background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(168,85,247,0.08));
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: var(--radius-xl, 20px);
+            padding: 3rem; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .gp-bottom-cta-inner::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(37,99,235,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .gp-bottom-cta h2 {
+            font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 800; color: var(--text-primary); margin-bottom: 1rem;
+            position: relative;
+        }
+        .gp-bottom-cta p {
+            font-size: 1rem; color: var(--text-muted); max-width: 600px;
+            margin: 0 auto 2rem; line-height: 1.8; position: relative;
+        }
+        .gp-cta-wa-btn {
+            display: inline-flex; align-items: center; gap: 0.7rem;
+            background: #25D366; color: #FFF; padding: 0.9rem 2.5rem;
+            border-radius: var(--radius-sm); font-size: 1rem; font-weight: 700;
+            text-decoration: none; transition: all 0.3s ease;
+            position: relative; border: none; cursor: pointer; font-family: inherit;
+        }
+        .gp-cta-wa-btn:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,211,102,0.3); }
+        .gp-cta-wa-btn svg { width: 22px; height: 22px; }
+
+        /* Footer */
+        .gp-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem; text-align: center;
+            color: var(--text-muted); font-size: 0.85rem;
+        }
+        .gp-footer a { color: var(--primary); text-decoration: none; }
+        .gp-footer a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .gp-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .gp-grid { grid-template-columns: 1fr; }
+            .gp-toolbar-inner { flex-direction: column; }
+            .gp-search-wrap { width: 100%; }
+            .gp-filter-select { width: 100%; }
+            .gp-results-count { margin-inline-start: 0; text-align: center; }
+            .gp-hero h1 { font-size: 1.8rem; }
+            .gp-stats-row { gap: 1.5rem; }
+            .gp-card-footer { flex-direction: column; gap: 1rem; align-items: stretch; }
+            .gp-order-btn { justify-content: center; }
+            .gp-bottom-cta-inner { padding: 2rem 1.5rem; }
+        }
+
+        /* Animations */
+        .gp-card { opacity: 0; transform: translateY(20px); animation: gpFadeIn 0.5s ease forwards; }
+        @keyframes gpFadeIn { to { opacity: 1; transform: translateY(0); } }
+        .gp-card:nth-child(1) { animation-delay: 0.05s; }
+        .gp-card:nth-child(2) { animation-delay: 0.1s; }
+        .gp-card:nth-child(3) { animation-delay: 0.15s; }
+        .gp-card:nth-child(4) { animation-delay: 0.2s; }
+        .gp-card:nth-child(5) { animation-delay: 0.25s; }
+        .gp-card:nth-child(6) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body class="gp-page">
+    <!-- Navbar -->
+    <nav class="gp-navbar">
+        <div class="container">
+            <a href="index.html" class="gp-navbar-logo">
+                <span>Ahmed</span> Diab
+            </a>
+            <div class="gp-navbar-actions">
+                <a href="index.html" class="gp-nav-btn">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-ar">الرئيسية</span>
+                </a>
+                <button class="gp-nav-btn" id="langToggle">EN / عربي</button>
+                <button class="gp-nav-btn" id="themeToggle">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="gp-hero">
+        <div class="gp-hero-tag">
+            <span class="lang-en">🔗 Guest Post Marketplace</span>
+            <span class="lang-ar">🔗 منصة الجيست بوست والنشر المدفوع</span>
+        </div>
+        <h1>
+            <span class="lang-en">Premium Arabic Guest Posting Service</span>
+            <span class="lang-ar">خدمة النشر المدفوع على أقوى المواقع العربية</span>
+        </h1>
+        <p>
+            <span class="lang-en">Get high-quality dofollow backlinks from top Arabic and Gulf news sites, tech blogs, and authority portals at competitive prices.</span>
+            <span class="lang-ar">احصل على باك لينكات دوفولو عالية الجودة من أقوى المواقع الإخبارية العربية والخليجية والمدونات التقنية والمواقع الموثوقة بأسعار تنافسية.</span>
+        </p>
+        <div class="gp-stats-row">
+            <div class="gp-stat">
+                <div class="gp-stat-num" id="sitesCount">36+</div>
+                <div class="gp-stat-label">
+                    <span class="lang-en">Available Sites</span>
+                    <span class="lang-ar">موقع متاح</span>
+                </div>
+            </div>
+            <div class="gp-stat">
+                <div class="gp-stat-num">1000+</div>
+                <div class="gp-stat-label">
+                    <span class="lang-en">Total Network</span>
+                    <span class="lang-ar">شبكة المواقع الكاملة</span>
+                </div>
+            </div>
+            <div class="gp-stat">
+                <div class="gp-stat-num">$20</div>
+                <div class="gp-stat-label">
+                    <span class="lang-en">Starting From</span>
+                    <span class="lang-ar">الأسعار تبدأ من</span>
+                </div>
+            </div>
+            <div class="gp-stat">
+                <div class="gp-stat-num">DA 49</div>
+                <div class="gp-stat-label">
+                    <span class="lang-en">Highest DA</span>
+                    <span class="lang-ar">أعلى DA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Filter Toolbar -->
+    <div class="gp-toolbar">
+        <div class="gp-toolbar-inner">
+            <div class="gp-search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                <input type="text" class="gp-search-input" id="gpSearch" placeholder="ابحث باسم الموقع...">
+            </div>
+            <select class="gp-filter-select" id="gpPriceFilter">
+                <option value="all">كل الأسعار</option>
+                <option value="0-25">$20 – $25</option>
+                <option value="26-35">$26 – $35</option>
+                <option value="36-50">$36 – $50</option>
+                <option value="51-100">$51 – $70</option>
+            </select>
+            <select class="gp-filter-select" id="gpDaFilter">
+                <option value="all">كل DA</option>
+                <option value="40-100">DA 40+</option>
+                <option value="30-39">DA 30–39</option>
+                <option value="20-29">DA 20–29</option>
+                <option value="0-19">DA أقل من 20</option>
+            </select>
+            <select class="gp-filter-select" id="gpSortBy">
+                <option value="default">ترتيب: افتراضي</option>
+                <option value="da-desc">الأعلى DA</option>
+                <option value="traffic-desc">الأعلى زيارات</option>
+                <option value="price-asc">الأقل سعراً</option>
+                <option value="price-desc">الأعلى سعراً</option>
+            </select>
+            <div class="gp-results-count" id="gpResultsCount">36 موقع</div>
+        </div>
+    </div>
+
+    <!-- Sites Grid -->
+    <div class="gp-grid-section">
+        <div class="gp-grid" id="gpGrid">
+            <!-- Cards rendered by JS -->
+        </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="gp-bottom-cta">
+        <div class="gp-bottom-cta-inner">
+            <h2>
+                <span class="lang-en">Need More Sites? We Have 1000+ Arabic & Gulf Websites</span>
+                <span class="lang-ar">تحتاج مواقع أكثر؟ لدينا أكثر من 1000 موقع عربي وخليجي</span>
+            </h2>
+            <p>
+                <span class="lang-en">Access our full network of Arabic, Saudi, Emirati, Egyptian, and Gulf news sites and blogs at affordable prices. Contact us on WhatsApp for the complete list and custom packages.</span>
+                <span class="lang-ar">احصل على قائمة كاملة بالمواقع العربية والسعودية والإماراتية والمصرية والخليجية بأسعار مناسبة جداً. تواصل معنا على الواتساب للحصول على القائمة الكاملة وعروض خاصة.</span>
+            </p>
+            <a href="https://wa.me/201065043034?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%82%D8%A7%D8%A6%D9%85%D8%A9%20%D8%A7%D9%84%D9%85%D9%88%D8%A7%D9%82%D8%B9%20%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84%D8%A9%20%D9%84%D9%84%D8%AC%D9%8A%D8%B3%D8%AA%20%D8%A8%D9%88%D8%B3%D8%AA" target="_blank" class="gp-cta-wa-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span class="lang-en">Contact Us on WhatsApp</span>
+                <span class="lang-ar">تواصل معنا عبر الواتساب</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gp-footer">
+        <p>
+            <span class="lang-en">© 2026 Ahmed Diab — SEO Specialist. <a href="index.html">Back to Portfolio</a></span>
+            <span class="lang-ar">© 2026 أحمد دياب — متخصص سيو. <a href="index.html">العودة للموقع الرئيسي</a></span>
+        </p>
+    </footer>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ===== DATA =====
+        const SITES = [
+            {site:"malomatpro.com",price:20,traffic:null,da:null,ss:null,type:"tech"},
+            {site:"beseyat.com",price:50,traffic:521000,da:45,ss:1,type:"news"},
+            {site:"m3aarf.com",price:70,traffic:142000,da:49,ss:1,type:"edu"},
+            {site:"mindluster.com",price:60,traffic:34000,da:31,ss:1,type:"edu"},
+            {site:"eg-24.com",price:45,traffic:1400,da:11,ss:1,type:"news"},
+            {site:"almashhadnews.com",price:30,traffic:282,da:22,ss:1,type:"news"},
+            {site:"elzmannews.com",price:30,traffic:208000,da:35,ss:1,type:"news"},
+            {site:"altreeq.com",price:30,traffic:68300,da:31,ss:2,type:"news"},
+            {site:"alnaharegypt.com",price:30,traffic:112000,da:41,ss:0,type:"news"},
+            {site:"aldawlanews.com",price:30,traffic:10900,da:32,ss:3,type:"news"},
+            {site:"alnahar.news",price:30,traffic:280,da:20,ss:3,type:"news"},
+            {site:"msr2030.com",price:30,traffic:2500,da:25,ss:5,type:"news-eg"},
+            {site:"parlgate.com",price:30,traffic:910,da:14,ss:2,type:"politics"},
+            {site:"sabaharabi.com",price:30,traffic:110700,da:31,ss:1,type:"news"},
+            {site:"aswaqinformation.com",price:30,traffic:41900,da:32,ss:1,type:"biz"},
+            {site:"mahttmsr.com",price:30,traffic:767,da:13,ss:2,type:"news-eg"},
+            {site:"ahly.online",price:30,traffic:9200,da:20,ss:1,type:"sport"},
+            {site:"anbaaalyoumeg.com",price:30,traffic:null,da:null,ss:null,type:"news-eg"},
+            {site:"elmydannews.com",price:30,traffic:null,da:null,ss:null,type:"news"},
+            {site:"bneconomy.com",price:30,traffic:null,da:null,ss:null,type:"biz"},
+            {site:"khtahmar.com",price:30,traffic:null,da:null,ss:null,type:"news"},
+            {site:"egyptiansabroad.news",price:30,traffic:null,da:null,ss:null,type:"community"},
+            {site:"pl3rb.com",price:30,traffic:null,da:null,ss:null,type:"general"},
+            {site:"akhbarmsr.news",price:30,traffic:null,da:null,ss:null,type:"news-eg"},
+            {site:"masrwnasha.com",price:30,traffic:null,da:null,ss:null,type:"news-eg"},
+            {site:"anahwa.com",price:30,traffic:null,da:null,ss:null,type:"general"},
+            {site:"emiratenewsday.com",price:50,traffic:null,da:null,ss:null,type:"news-uae"},
+            {site:"shafaq-e.sa",price:35,traffic:null,da:null,ss:null,type:"news-sa"},
+            {site:"sharqobserver.com",price:35,traffic:null,da:null,ss:null,type:"news"},
+            {site:"sharqtimes.com",price:35,traffic:null,da:null,ss:null,type:"news"},
+            {site:"mexawy.online",price:35,traffic:null,da:null,ss:null,type:"general"},
+            {site:"arabstechno.com",price:35,traffic:null,da:null,ss:null,type:"tech"},
+            {site:"mobileservicescenter.com",price:25,traffic:null,da:null,ss:null,type:"tech-mobile"},
+            {site:"saudiwadi.com",price:35,traffic:null,da:null,ss:null,type:"news-sa"},
+            {site:"alsaudiapress.com",price:50,traffic:null,da:null,ss:null,type:"news-sa"},
+            {site:"alkhaleejlive.com",price:20,traffic:null,da:null,ss:null,type:"news-gulf"}
+        ];
+
+        // ===== DESCRIPTIONS =====
+        const DESCS = {
+            ar: {
+                "news": "موقع إخباري عربي متخصص في تغطية الأحداث والأخبار العاجلة والمحتوى المتنوع.",
+                "news-eg": "بوابة إخبارية مصرية تقدم تغطية شاملة للأخبار المحلية والعربية.",
+                "news-sa": "موقع إخباري سعودي متخصص في أخبار المملكة والشأن الخليجي.",
+                "news-uae": "بوابة إخبارية إماراتية تغطي أخبار الإمارات والخليج والعالم العربي.",
+                "news-gulf": "موقع إخباري خليجي يقدم تغطية شاملة لأخبار دول الخليج العربي.",
+                "tech": "مدونة تقنية متخصصة في التكنولوجيا والبرمجيات والحلول الرقمية.",
+                "tech-mobile": "موقع تقني متخصص في أخبار ومراجعات الهواتف الذكية والتطبيقات.",
+                "edu": "منصة تعليمية تقدم دورات ومحتوى تعليمي متنوع عالي الجودة.",
+                "biz": "موقع متخصص في الأعمال والاقتصاد والأسواق المالية.",
+                "sport": "موقع رياضي متخصص في تغطية الأخبار الرياضية والمباريات.",
+                "politics": "موقع إخباري سياسي يغطي الشأن البرلماني والسياسي.",
+                "community": "بوابة مجتمعية تستهدف الجالية المصرية في الخارج.",
+                "general": "موقع محتوى عام يقدم مقالات متنوعة في عدة مجالات."
+            },
+            en: {
+                "news": "Arabic news portal covering breaking news, events, and diverse content.",
+                "news-eg": "Egyptian news portal providing comprehensive local and Arab news coverage.",
+                "news-sa": "Saudi news site specializing in Kingdom and Gulf affairs.",
+                "news-uae": "Emirati news portal covering UAE, Gulf, and Arab world news.",
+                "news-gulf": "Gulf news site providing comprehensive coverage of GCC countries.",
+                "tech": "Technology blog specializing in tech, software, and digital solutions.",
+                "tech-mobile": "Tech site specializing in smartphone news, reviews, and apps.",
+                "edu": "Educational platform offering diverse high-quality courses and learning content.",
+                "biz": "Business and economy site covering markets and financial news.",
+                "sport": "Sports website specializing in sports news and match coverage.",
+                "politics": "Political news site covering parliamentary and political affairs.",
+                "community": "Community portal targeting the Egyptian diaspora abroad.",
+                "general": "General content website offering diverse articles across multiple topics."
+            }
+        };
+
+        // ===== Compute badges =====
+        const sitesWithData = SITES.filter(s => s.da !== null);
+        const maxDA = Math.max(...sitesWithData.map(s => s.da));
+        const maxTraffic = Math.max(...SITES.filter(s => s.traffic).map(s => s.traffic));
+        const minPrice = Math.min(...SITES.map(s => s.price));
+
+        function getBadges(s) {
+            const badges = [];
+            if (s.da === maxDA) badges.push({emoji: '⭐', text: 'أعلى DA', cls: 'gp-badge-da'});
+            if (s.traffic === maxTraffic) badges.push({emoji: '🔥', text: 'أعلى زيارات', cls: 'gp-badge-traffic'});
+            if (s.price === minPrice) badges.push({emoji: '💰', text: 'أفضل سعر', cls: 'gp-badge-price'});
+            if (s.ss !== null && s.ss <= 1) badges.push({emoji: '✅', text: 'Spam منخفض', cls: 'gp-badge-spam'});
+            return badges;
+        }
+
+        function formatTraffic(t) {
+            if (!t) return '—';
+            if (t >= 1000000) return (t / 1000000).toFixed(1) + 'M';
+            if (t >= 1000) return (t / 1000).toFixed(t >= 10000 ? 0 : 1) + 'K';
+            return t.toString();
+        }
+
+        function renderCard(s) {
+            const badges = getBadges(s);
+            const desc = DESCS.ar[s.type] || DESCS.ar.general;
+            const descEn = DESCS.en[s.type] || DESCS.en.general;
+            const waMsg = encodeURIComponent(`مرحبا أحمد، أريد نشر جيست بوست على موقع ${s.site}`);
+            const logoUrl = `https://www.google.com/s2/favicons?domain=${s.site}&sz=128`;
+
+            return `
+            <div class="gp-card" data-site="${s.site}" data-price="${s.price}" data-da="${s.da || 0}" data-traffic="${s.traffic || 0}">
+                ${badges.length ? `<div class="gp-card-badges">${badges.map(b => `<span class="gp-badge ${b.cls}">${b.emoji} ${b.text}</span>`).join('')}</div>` : ''}
+                <div class="gp-card-header">
+                    <div class="gp-card-logo">
+                        <img src="${logoUrl}" alt="${s.site}" loading="lazy" onerror="this.src='https://www.google.com/s2/favicons?domain=${s.site}&sz=64'">
+                    </div>
+                    <div class="gp-card-info">
+                        <div class="gp-card-name">${s.site}</div>
+                        <a href="https://${s.site}" target="_blank" rel="noopener" class="gp-card-url">${s.site}</a>
+                    </div>
+                </div>
+                <p class="gp-card-desc">
+                    <span class="lang-en">${descEn}</span>
+                    <span class="lang-ar">${desc}</span>
+                </p>
+                <div class="gp-card-stats">
+                    <div class="gp-card-stat-item">
+                        <div class="gp-card-stat-val">${formatTraffic(s.traffic)}</div>
+                        <div class="gp-card-stat-label">Traffic</div>
+                    </div>
+                    <div class="gp-card-stat-item">
+                        <div class="gp-card-stat-val">${s.da !== null ? s.da : '—'}</div>
+                        <div class="gp-card-stat-label">DA</div>
+                    </div>
+                    <div class="gp-card-stat-item">
+                        <div class="gp-card-stat-val">${s.ss !== null ? s.ss + '%' : '—'}</div>
+                        <div class="gp-card-stat-label">Spam</div>
+                    </div>
+                </div>
+                <div class="gp-card-footer">
+                    <div class="gp-card-price">$${s.price} <span>/ post</span></div>
+                    <a href="https://wa.me/201065043034?text=${waMsg}" target="_blank" rel="noopener" class="gp-order-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span class="lang-en">Order Now</span>
+                        <span class="lang-ar">اطلب الآن</span>
+                    </a>
+                </div>
+            </div>`;
+        }
+
+        // ===== RENDER & FILTER =====
+        const grid = document.getElementById('gpGrid');
+        const searchInput = document.getElementById('gpSearch');
+        const priceFilter = document.getElementById('gpPriceFilter');
+        const daFilter = document.getElementById('gpDaFilter');
+        const sortBy = document.getElementById('gpSortBy');
+        const resultsCount = document.getElementById('gpResultsCount');
+
+        function filterAndRender() {
+            const query = searchInput.value.toLowerCase().trim();
+            const pv = priceFilter.value;
+            const dv = daFilter.value;
+            const sv = sortBy.value;
+
+            let filtered = SITES.filter(s => {
+                if (query && !s.site.toLowerCase().includes(query)) return false;
+                if (pv !== 'all') {
+                    const [min, max] = pv.split('-').map(Number);
+                    if (s.price < min || s.price > max) return false;
+                }
+                if (dv !== 'all') {
+                    const [min, max] = dv.split('-').map(Number);
+                    const da = s.da || 0;
+                    if (da < min || da > max) return false;
+                }
+                return true;
+            });
+
+            // Sort
+            switch (sv) {
+                case 'da-desc': filtered.sort((a, b) => (b.da || 0) - (a.da || 0)); break;
+                case 'traffic-desc': filtered.sort((a, b) => (b.traffic || 0) - (a.traffic || 0)); break;
+                case 'price-asc': filtered.sort((a, b) => a.price - b.price); break;
+                case 'price-desc': filtered.sort((a, b) => b.price - a.price); break;
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div class="gp-no-results">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <p><span class="lang-en">No sites match your filters</span><span class="lang-ar">لا توجد مواقع تطابق الفلاتر المحددة</span></p>
+                </div>`;
+            } else {
+                grid.innerHTML = filtered.map(renderCard).join('');
+            }
+
+            const isAr = document.documentElement.getAttribute('lang') === 'ar';
+            resultsCount.textContent = isAr ? `${filtered.length} موقع` : `${filtered.length} sites`;
+            applyLangVisibility();
+        }
+
+        searchInput.addEventListener('input', filterAndRender);
+        priceFilter.addEventListener('change', filterAndRender);
+        daFilter.addEventListener('change', filterAndRender);
+        sortBy.addEventListener('change', filterAndRender);
+
+        // ===== LANGUAGE TOGGLE =====
+        const htmlNode = document.documentElement;
+        const langToggle = document.getElementById('langToggle');
+
+        function applyLangVisibility() {
+            const lang = htmlNode.getAttribute('lang');
+            document.querySelectorAll('.lang-en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+            document.querySelectorAll('.lang-ar').forEach(el => el.style.display = lang === 'ar' ? '' : 'none');
+        }
+
+        langToggle.addEventListener('click', () => {
+            const current = htmlNode.getAttribute('lang');
+            const next = current === 'ar' ? 'en' : 'ar';
+            htmlNode.setAttribute('lang', next);
+            htmlNode.setAttribute('dir', next === 'ar' ? 'rtl' : 'ltr');
+            searchInput.placeholder = next === 'ar' ? 'ابحث باسم الموقع...' : 'Search by site name...';
+            // Update filter labels
+            const priceOpts = priceFilter.options;
+            priceOpts[0].text = next === 'ar' ? 'كل الأسعار' : 'All Prices';
+            const daOpts = daFilter.options;
+            daOpts[0].text = next === 'ar' ? 'كل DA' : 'All DA';
+            const sortOpts = sortBy.options;
+            sortOpts[0].text = next === 'ar' ? 'ترتيب: افتراضي' : 'Sort: Default';
+            sortOpts[1].text = next === 'ar' ? 'الأعلى DA' : 'Highest DA';
+            sortOpts[2].text = next === 'ar' ? 'الأعلى زيارات' : 'Highest Traffic';
+            sortOpts[3].text = next === 'ar' ? 'الأقل سعراً' : 'Lowest Price';
+            sortOpts[4].text = next === 'ar' ? 'الأعلى سعراً' : 'Highest Price';
+
+            filterAndRender();
+        });
+
+        // ===== THEME TOGGLE =====
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const current = htmlNode.getAttribute('data-theme');
+            htmlNode.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        });
+
+        // ===== INIT =====
+        filterAndRender();
+    })();
+    </script>
+</body>
+</html>
