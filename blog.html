@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" data-theme="dark" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المدونة | Ahmed Diab SEO Blog</title>
+<meta name="description" content="مقالات سيو وسرعة المواقع وسيو المتاجر الإلكترونية (شوبيفاي، سلة، ووكوميرس) من أحمد دياب.">
+<link rel="canonical" href="https://ahmed-diab-seo.vercel.app/blog.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.bp-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(9,9,11,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-color);padding:1rem 0}
+.bp-nav .container{display:flex;align-items:center;justify-content:space-between}
+.bp-logo{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--text-primary);text-decoration:none}.bp-logo span{color:var(--primary)}
+.bp-btn{background:transparent;border:1px solid var(--border-color);color:var(--text-secondary);padding:.5rem 1rem;border-radius:var(--radius-sm);cursor:pointer;text-decoration:none;font:inherit;font-size:.85rem;margin-inline-start:.5rem}
+.bp-main{padding:8rem 0 4rem;min-height:80vh}
+.bp-article{max-width:760px;margin:0 auto}.bp-article h1{font-size:2rem;margin:.5rem 0 1.5rem;line-height:1.4}
+.bp-article p{line-height:2;color:var(--text-secondary);margin-bottom:1.2rem}
+.bp-cta{margin-top:2.5rem;padding:1.5rem;text-align:center}
+.bp-foot{text-align:center;padding:2rem;border-top:1px solid var(--border-color);color:var(--text-secondary)}
+.blog-card{display:block;text-decoration:none;color:inherit}
+</style>
+</head>
+<body>
+<nav class="bp-nav"><div class="container">
+<a href="index.html" class="bp-logo"><span>Ahmed</span> Diab</a>
+<div><a href="index.html" class="bp-btn"><span class="lang-en">Home</span><span class="lang-ar">الرئيسية</span></a>
+<a href="blog.html" class="bp-btn"><span class="lang-en">Blog</span><span class="lang-ar">المدونة</span></a>
+<button class="bp-btn" id="langToggle">EN / عربي</button></div></div></nav>
+<main class="bp-main"><div class="container" id="app"></div></main>
+<footer class="bp-foot">© 2026 Ahmed Diab — <a href="index.html">Home | الرئيسية</a></footer>
+<script src="blog-data.js"></script>
+<script>
+(function(){
+var H=document.documentElement,P=window.POSTS,C=window.POST_CATS,app=document.getElementById('app');
+var BASE='https://ahmed-diab-seo.vercel.app/',WA='https://wa.me/201065043034';
+var slug=new URLSearchParams(location.search).get('post'),cat='all';
+function t(o){return '<span class="lang-en">'+o.en+'</span><span class="lang-ar">'+o.ar+'</span>'}
+function fd(d,l){return new Date(d).toLocaleDateString(l==='ar'?'ar-EG':'en-US',{year:'numeric',month:'long',day:'numeric'})}
+function setLang(l){H.lang=l;H.dir=l==='ar'?'rtl':'ltr';localStorage.setItem('lang',l);if(slug)head()}
+function head(){var p=P.find(function(x){return x.slug===slug});if(!p)return;var l=H.lang;document.title=p.title[l]+' | Ahmed Diab'}
+function list(){
+ var h='<div class="section-header"><span class="section-tag">'+t({en:'Blog',ar:'المدونة'})+'</span><h1 class="section-title">'+t({en:'SEO & E-commerce Insights',ar:'مقالات السيو والمتاجر الإلكترونية'})+'</h1></div><div class="portfolio-filters">';
+ Object.keys(C).forEach(function(k){h+='<button class="filter-btn'+(k===cat?' active':'')+'" data-c="'+k+'">'+t(C[k])+'</button>'});
+ h+='</div><div class="blog-grid">';
+ P.filter(function(p){return cat==='all'||p.cat===cat}).forEach(function(p){
+  h+='<a class="blog-card glass-card" href="blog.html?post='+p.slug+'"><div class="blog-details"><div class="blog-meta"><span>'+t(C[p.cat])+'</span><span>•</span><span class="lang-en">'+fd(p.date,'en')+'</span><span class="lang-ar">'+fd(p.date,'ar')+'</span></div><h3 class="blog-title">'+t(p.title)+'</h3><p class="blog-excerpt">'+t(p.excerpt)+'</p><span class="blog-link">'+t({en:'Read Article',ar:'اقرأ المقال'})+'</span></div></a>'});
+ app.innerHTML=h+'</div>';
+ app.querySelectorAll('.filter-btn').forEach(function(b){b.onclick=function(){cat=b.dataset.c;list()}});
+}
+function post(p){
+ var h='<article class="bp-article"><a href="blog.html" class="blog-link">← '+t({en:'All articles',ar:'كل المقالات'})+'</a><div class="blog-meta" style="margin-top:1rem"><span>'+t(C[p.cat])+'</span><span>•</span><span class="lang-en">'+fd(p.date,'en')+' · '+p.min+' min</span><span class="lang-ar">'+fd(p.date,'ar')+' · '+p.min+' دقائق</span></div><h1>'+t(p.title)+'</h1>';
+ for(var i=0;i<p.body.en.length;i++)h+='<p><span class="lang-en">'+p.body.en[i]+'</span><span class="lang-ar">'+p.body.ar[i]+'</span></p>';
+ h+='<div class="bp-cta glass-card"><p>'+t({en:'Want this applied to your store or website?',ar:'عايز نطبّق ده على موقعك أو متجرك؟'})+'</p><a class="btn btn-primary" href="'+WA+'">'+t({en:'Free SEO Audit',ar:'فحص سيو مجاني'})+'</a></div></article>';
+ app.innerHTML=h;
+ var d=document.createElement('meta');d.name='description';d.content=p.excerpt.ar;document.head.appendChild(d);
+ var k=document.querySelector('link[rel=canonical]');k.href=BASE+'blog.html?post='+p.slug;
+ var s=document.createElement('script');s.type='application/ld+json';
+ s.text=JSON.stringify({'@context':'https://schema.org','@type':'BlogPosting',headline:p.title.en,datePublished:p.date,inLanguage:['ar','en'],author:{'@type':'Person',name:'Ahmed Diab'},mainEntityOfPage:BASE+'blog.html?post='+p.slug});
+ document.head.appendChild(s);head();
+}
+document.getElementById('langToggle').onclick=function(){setLang(H.lang==='ar'?'en':'ar')};
+H.lang=localStorage.getItem('lang')||'ar';H.dir=H.lang==='ar'?'rtl':'ltr';
+var cur=slug&&P.find(function(x){return x.slug===slug});
+if(cur)post(cur);else list();
+})();
+</script>
+</body></html>

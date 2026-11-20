@@ -2158,3 +2158,7 @@ html[lang="ar"] .blog-link:hover svg {
         font-size: 1.2rem;
     }
 }
+
+/* Platforms section */
+.platforms{padding-top:2rem}
+.platforms .services-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
